@@ -30,12 +30,25 @@ CREATE SCHEMA faculty;
 একটি টেবিলের প্রতিটি রো বা রেকর্ডকে ইউনিকভাবে সনাক্ত করার জন্য ব্যবহৃত হয়। এটি হতে পারে একটি কলাম বা একাধিক কলামের সমন্বয়। এটি `UNIQUE` ও `NOT NULL` হতে হয়।
 ### উদাহরণ:
 ````sql
+CREATE TABLE students (
+    id SERIAL PRIMARY KEY,
+    name TEXT,
+    age INT
+);
+````
+এখানে id হচ্ছে প্রাইমারি কি — এটা ডুপ্লিকেট হবে না এবং ফাঁকা রাখা যাবে না।
+
+### Foreign Key:
+Foreign Key হলো এমন একটি কী যেটা অন্য টেবিলের Primary Key-কে রেফার করে। এটি দুইটি টেবিলের মধ্যে সম্পর্ক (relationship) তৈরি করে।
+### উদাহরণ:
+````sql
 CREATE TABLE enrollments (
     enrollment_id SERIAL PRIMARY KEY,
     student_id INT REFERENCES students(id),
     course_id INT
 );
 ````
- **গুরুত্ব:**
+এখানে `student_id` হচ্ছে Foreign Key যেটা `students` টেবিলের `id`-কে রেফার করে। অর্থাৎ, `enrollments` টেবিলের `student_id`-এ যে আইডি থাকবে, তা অবশ্যই `students` টেবিলে থাকতে হবে।
+ #### **গুরুত্ব:**
 - টেবিলের মধ্যে রিলেশন তৈরি করে
 - ডেটা ইন্টিগ্রিটি বজায় রাখে (ভুল ডেটা ইনপুট রোধ করে)
